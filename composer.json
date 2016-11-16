@@ -29,7 +29,7 @@
         "zendframework/zend-i18n": "^2.5",
         "zendframework/zend-filter": "^2.5",
         "symfony/serializer": "^2.7",
-        "doctrine/doctrine-module": "^2.*",
+        "doctrine/doctrine-module": "^2.0",
         "mtdowling/cron-expression": "^1.0",
         "nesbot/carbon": "^1.21",
         "fzaninotto/faker": "~1.5.0",

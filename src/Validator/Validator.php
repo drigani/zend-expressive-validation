@@ -7,6 +7,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ServerRequestInterface;
 use ReflectionClass;
 use Zend\Expressive\Router\RouterInterface;
+use Zend\I18n\Translator\Translator;
+use Zend\I18n\Translator\TranslatorInterface;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Validator\Db\RecordExists;
 
@@ -37,22 +39,30 @@ class Validator implements ValidatorInterface
      * @var EntityManagerInterface
      */
     private $entityManagerInterface;
+
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
     /**
      * The options extractor for extracting from the config
      * @param OptionsExtractor $optionsExtractor
      * @param RouterInterface $router
      * @param EntityManagerInterface $entityManagerInterface
+     * @param TranslatorInterface $translator
      */
     public function __construct(
         OptionsExtractor $optionsExtractor,
         RouterInterface $router,
-        EntityManagerInterface $entityManagerInterface = null
+        EntityManagerInterface $entityManagerInterface = null,
+        TranslatorInterface $translator = null
     ) {
         $this->optionsExtractor = $optionsExtractor;
         $this->router = $router;
         $this->entityManagerInterface = $entityManagerInterface;
+        $this->translator = $translator;
     }
-
 
     /**
      * Validates the request
@@ -125,7 +135,7 @@ class Validator implements ValidatorInterface
         if (!class_exists($class)) {
             throw new ValidationClassNotExists("Class with name: " . $class . " does not exist");
         } else {
-            return (new ReflectionClass($class))->newInstanceArgs([$request]);
+            return (new ReflectionClass($class))->newInstanceArgs([$request, $this->translator]);
         }
     }
 }

@@ -13,7 +13,7 @@ trait ValidationRulesConstructorTrait
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    protected $translator;
 
     public function __construct(ServerRequestInterface $request, TranslatorInterface $translator = null)
     {

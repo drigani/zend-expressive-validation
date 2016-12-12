@@ -2,6 +2,7 @@
 namespace ExpressiveValidator\Validator;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\I18n\Translator\TranslatorInterface;
 
 trait ValidationRulesConstructorTrait
 {
@@ -9,10 +10,14 @@ trait ValidationRulesConstructorTrait
      * @var ServerRequestInterface
      */
     private $request;
-    private $idRegex = '/^\S{8,8}(-\S{4,4}){3,3}-\S{12,12}$/';
+    /**
+     * @var TranslatorInterface
+     */
+    protected $translator;
 
-    public function __construct(ServerRequestInterface $request)
+    public function __construct(ServerRequestInterface $request, TranslatorInterface $translator = null)
     {
         $this->request = $request;
+        $this->translator = $translator;
     }
 }
